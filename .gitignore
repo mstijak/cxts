@@ -1,0 +1,16 @@
+/.idea
+.vscode
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+node_modules
+*.hot-update.js
+*.log
+dist
+
+Thumbs.db

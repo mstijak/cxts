@@ -1,4 +1,4 @@
-import { VDOM as vdom } from "cx-react";
+import { VDOM as vdom } from "cxts-react";
 
 export interface VDOMImplementation {
   createElement(type, props, ...children);

@@ -1,0 +1,31 @@
+{
+  "name": "cxts-ws",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Port CxJS to TypeScript",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "mocha --config ./test/mocha.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/*",
+    "docs"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/plugin-transform-react-jsx": "^7.22.5",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-typescript": "^7.22.5",
+    "@babel/register": "^7.22.5",
+    "@types/mocha": "^10.0.1",
+    "assert": "^2.0.0",
+    "babel-plugin-transform-cx-jsx": "^21.3.0",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.1"
+  }
+}

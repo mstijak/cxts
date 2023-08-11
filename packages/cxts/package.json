@@ -1,0 +1,7 @@
+{
+  "name": "cxts",
+  "version": "0.0.1",
+  "dependencies": {
+    "route-parser": "^0.0.5"
+  }
+}
