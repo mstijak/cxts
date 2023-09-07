@@ -9,6 +9,8 @@ export interface VDOMImplementation {
     unmountComponentAtNode: (node: Element) => boolean;
     render: (element: any, node: Element) => void;
   };
+
+  Component: VDOM.Component;
 }
 
 export const VDOM: VDOMImplementation = vdom;

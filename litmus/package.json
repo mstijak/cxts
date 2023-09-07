@@ -8,6 +8,7 @@
    "dependencies": {
       "casual": "^1.6.2",
       "core-js": "^3.30.1",
+      "cx": "^23.8.0",
       "cx-immer": "^22.3.0",
       "cxts": "^0.0.1",
       "cxts-react": "^0.0.1",

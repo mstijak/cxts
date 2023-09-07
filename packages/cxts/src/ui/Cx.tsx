@@ -44,7 +44,12 @@ export class Cx extends VDOM.Component {
         this.parentInstance = props.parentInstance;
         this.store = props.store || this.parentInstance.store;
       } else {
-        this.parentInstance = new Instance(this.widget, 0);
+        this.parentInstance = new Instance(
+          this.widget,
+          "root",
+          null,
+          props.store,
+        );
         this.store = props.store;
       }
 
@@ -61,7 +66,9 @@ export class Cx extends VDOM.Component {
       this.state.data = this.store.getData();
     }
 
-    this.flags = {};
+    this.flags = {
+      preparing: false,
+    };
     this.renderCount = 0;
 
     if (props.onError)
@@ -108,7 +115,7 @@ export class Cx extends VDOM.Component {
       return (this.instance = this.parentInstance.getDetachedChild(
         this.widget,
         0,
-        this.store
+        this.store,
       ));
 
     throw new Error("Could not resolve a widget instance in the Cx component.");
@@ -177,7 +184,7 @@ export class Cx extends VDOM.Component {
       },
       {
         timeout: this.props.idleTimeout || 30000,
-      }
+      },
     );
   }
 
@@ -232,7 +239,7 @@ class CxContext extends VDOM.Component {
     //should not be tracked by parents for destroy
     if (!instance.detached)
       throw new Error(
-        "The instance passed to a Cx component should be detached from its parent."
+        "The instance passed to a Cx component should be detached from its parent.",
       );
 
     if (this.props.instance !== instance && this.props.instance.destroyTracked)
@@ -335,7 +342,7 @@ class CxContext extends VDOM.Component {
         (beforeVDOMRender - start + afterCleanup - afterVDOMRender).toFixed(2) +
           "ms",
         "vdom",
-        (afterVDOMRender - beforeVDOMRender).toFixed(2) + "ms"
+        (afterVDOMRender - beforeVDOMRender).toFixed(2) + "ms",
       );
 
       Timing.log(
@@ -353,7 +360,7 @@ class CxContext extends VDOM.Component {
         "vdom",
         (afterVDOMRender - beforeVDOMRender).toFixed(1),
         "cleanup",
-        (afterCleanup - afterVDOMRender).toFixed(1)
+        (afterCleanup - afterVDOMRender).toFixed(1),
       );
     }
   }

@@ -2968,6 +2968,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cx@npm:^23.8.0":
+  version: 23.8.0
+  resolution: "cx@npm:23.8.0"
+  dependencies:
+    intl-io: ^0.3.0
+    route-parser: ^0.0.5
+  peerDependencies:
+    "@types/react": "*"
+    react: "*"
+    react-dom: "*"
+  checksum: 1e4de49d28f273609a04d6e015d4b64c7edd09584993f1264d9dc09acb1381b2bacab19274f4fd1fb06fb6b9c21bf23ca8b690b230f84f964446f4f964f9ab12
+  languageName: node
+  linkType: hard
+
 "cxts-react@^0.0.1, cxts-react@workspace:packages/cxts-react":
   version: 0.0.0-use.local
   resolution: "cxts-react@workspace:packages/cxts-react"
@@ -4382,6 +4396,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"intl-io@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "intl-io@npm:0.3.0"
+  checksum: a012f6726e3e1847159176c24d339d4a0538a06b7b66ac778f2605172f0f9ede4433c38c3a1cb3607be50c62d942257f1b62719fb25150446ac18b4158930af7
+  languageName: node
+  linkType: hard
+
 "intl@npm:^1.2.5":
   version: 1.2.5
   resolution: "intl@npm:1.2.5"
@@ -4761,6 +4782,7 @@ __metadata:
     copy-webpack-plugin: ^11.0.0
     core-js: ^3.30.1
     css-loader: ^6.7.3
+    cx: ^23.8.0
     cx-immer: ^22.3.0
     cxts: ^0.0.1
     cxts-react: ^0.0.1

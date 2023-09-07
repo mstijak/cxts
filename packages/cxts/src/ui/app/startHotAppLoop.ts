@@ -1,25 +1,41 @@
 import { startAppLoop } from "./startAppLoop";
 import { Widget } from "../Widget";
+import { View } from "../../data";
+import { Instance } from "../Instance";
 
-export function startHotAppLoop(appModule, element, store, widgets, options) {
-   let stop;
-   //webpack (HMR)
-   if (appModule.hot) {
-      // accept itself
-      appModule.hot.accept();
+/**
+   Starts the app loop with hot module reloading. Whenever the given module is updated, the app state is preserved.
+ */
+export function startHotAppLoop(
+  appModule: any,
+  parentDOMElement: Element,
+  storeOrInstance: View | Instance,
+  widget?: Widget,
+  options?: any,
+) {
+  let store =
+    storeOrInstance instanceof Instance
+      ? storeOrInstance.store
+      : storeOrInstance;
 
-      // remember data on dispose
-      appModule.hot.dispose(function (data) {
-         data.state = store.getData();
-         if (stop) stop();
-      });
+  let stop;
+  //webpack (HMR)
+  if (appModule.hot) {
+    // accept itself
+    appModule.hot.accept();
 
-      //apply data on hot replace
-      if (appModule.hot.data) store.load(appModule.hot.data.state);
-   }
+    // remember data on dispose
+    appModule.hot.dispose(function (data) {
+      data.state = store.getData();
+      if (stop) stop();
+    });
 
-   Widget.resetCounter();
+    //apply data on hot replace
+    if (appModule.hot.data) store.load(appModule.hot.data.state);
+  }
 
-   //app loop
-   return (stop = startAppLoop(element, store, widgets, options));
+  Widget.resetCounter();
+
+  //app loop
+  return (stop = startAppLoop(parentDOMElement, store, widget, options));
 }

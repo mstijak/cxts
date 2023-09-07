@@ -1,8 +1,9 @@
-import { Widget, startAppLoop, History, startHotAppLoop } from "cxts/ui";
-import { Timing, Debug } from "cxts/util";
-import { Store } from "cxts/data";
+//import "cxts/src/jsx";
+import { Widget, startAppLoop, History, startHotAppLoop } from "cxts/src/ui";
+import { Timing, Debug } from "cxts/src/util";
+import { Store } from "cxts/src/data";
 
-import Demo from "./features/test.ts";
+import Demo from "./features/test";
 
 let store = (window.store = new Store());
 

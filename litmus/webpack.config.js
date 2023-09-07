@@ -12,6 +12,8 @@ let common = {
    resolve: {
       alias: {
          cx: path.resolve(path.join(__dirname, "../packages/cx")),
+         cxts: path.resolve(path.join(__dirname, "../packages/cxts")),
+         "cxts-react": path.resolve(path.join(__dirname, "../packages/cxts-react")),
          //'cx-react': path.resolve(path.join(__dirname, '../packages/cx-react')),
          //'cx-react': path.resolve(path.join(__dirname, '../packages/cx-preact')),
          //'cx-react': path.resolve(path.join(__dirname, '../packages/cx-inferno')),
@@ -40,7 +42,7 @@ let common = {
       //    'babel-polyfill',
       //    'cx-react'
       // ],
-      app: __dirname + "/index.js",
+      app: __dirname + "/index.ts",
    },
    output: {
       path: __dirname,

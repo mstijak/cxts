@@ -1,5 +1,5 @@
-import "../packages/cx/src/jsx";
-import { Widget, WidgetConfig } from "../packages/cx/src/ui/Widget";
+import "../packages/cxts/src/jsx";
+import { Widget, WidgetConfig } from "../packages/cxts/src/ui/Widget";
 
 interface XProps extends WidgetConfig {
   a: number;
