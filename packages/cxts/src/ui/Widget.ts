@@ -34,7 +34,7 @@ export interface WidgetConfig {
   vdomKey?: string;
 }
 
-export class Widget extends Component {
+export abstract class Widget extends Component {
   widgetId: number;
   jsxSpread: object[];
   jsxAttributes: string[];
@@ -85,7 +85,7 @@ export class Widget extends Component {
     if (this.styled) this.style = parseStyle(this.style);
     else if (this.style) {
       Console.warn(
-        "Components that allow use of the style attribute should set styled = true on their prototype. This will be an error in future versions."
+        "Components that allow use of the style attribute should set styled = true on their prototype. This will be an error in future versions.",
       );
       this.style = parseStyle(this.style);
       this.styled = true;
@@ -151,7 +151,7 @@ export class Widget extends Component {
     data.classNames = this.CSS.expand(
       this.CSS.block(this.baseClass, data.mod, data.stateMods),
       data.class,
-      data.className
+      data.className,
     );
     data.style = parseStyle(data.style);
   }
@@ -177,7 +177,7 @@ export class Widget extends Component {
         context,
         this.components[cmp],
         "cmp-" + cmp,
-        instance.store
+        instance.store,
       );
       if (ins.scheduleExploreIfVisible(context)) instance.components[cmp] = ins;
     }
@@ -192,12 +192,11 @@ export class Widget extends Component {
   onExplore?: (context: RenderingContext, instance: Instance) => void;
   onDestroy?: (instance: Instance) => void;
 
-  render(context: RenderingContext, instance: Instance, key: string) {
-    Console.log(this);
-    throw new Error(
-      'Widget\'s render method should be overridden. This error usually happens if with incorrect imports, i.e. import { TextField } from "cx/data". Please check the console for details about the component configuration.'
-    );
-  }
+  abstract render(
+    context: RenderingContext,
+    instance: Instance,
+    key: string,
+  ): any;
 
   update() {
     this.version = (this.version || 0) + 1;

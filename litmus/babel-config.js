@@ -11,7 +11,12 @@ module.exports = function (production) {
     ],
     presets: [
       "@babel/preset-typescript",
-      "@babel/preset-env",
+      [
+        "@babel/preset-env",
+        {
+          targets: { chrome: 100 },
+        },
+      ],
       //    [
       //       "cx-env",
       //       {
@@ -35,7 +40,7 @@ module.exports = function (production) {
     ],
     plugins: [
       ["babel-plugin-transform-cx-jsx", { autoImportHtmlElement: false }],
-      "@babel/transform-react-jsx",
+      ["@babel/transform-react-jsx", { pragma: "VDOM.createElement" }],
       // ["@babel/plugin-proposal-private-methods", { loose: false }],
       // ["@babel/plugin-proposal-private-property-in-object", { loose: false }],
     ],

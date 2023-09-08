@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "lib": ["ESNext"]
+    "lib": ["ESNext", "DOM"]
   }
 }

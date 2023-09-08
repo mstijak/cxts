@@ -53,6 +53,7 @@ export class Instance {
   contentVDOM: any;
   destroySubscriptions: (() => void)[] | null;
   assignedRenderList: any;
+  children?: Instance[];
   setters?: Record<
     string,
     { (value: any): boolean; clear?: () => void; reset?: (value: any) => void }
@@ -248,7 +249,7 @@ export class Instance {
         context,
         this.widget.outerLayout,
         null,
-        this.store
+        this.store,
       );
       this.outerLayout.scheduleExploreIfVisible(context);
       this.renderList = this.renderList.insertLeft();
@@ -439,8 +440,8 @@ export class Instance {
           validatedDebounce(
             (value) => this.doSet(prop, value),
             () => this.dataSelector(this.store)[prop],
-            p.debounce
-          )
+            p.debounce,
+          ),
         );
         this.set(prop, value, options);
         return true;
@@ -449,7 +450,7 @@ export class Instance {
       if (p.throttle) {
         this.definePropertySetter(
           prop,
-          throttle((value) => this.doSet(prop, value), p.throttle)
+          throttle((value) => this.doSet(prop, value), p.throttle),
         );
         this.set(prop, value, options);
         return true;
@@ -495,8 +496,8 @@ export class Instance {
     if (!config)
       throw new Error(
         `Unknown nested data key ${key}. Known keys are ${Object.keys(
-          dataConfig
-        ).join(", ")}.`
+          dataConfig,
+        ).join(", ")}.`,
       );
 
     if (isAccessorChain(config)) config = { bind: config.toString() };
@@ -512,13 +513,13 @@ export class Instance {
 
     if (!config.set)
       throw new Error(
-        `Cannot change nested data value for ${key} as it's read-only. Either define it as a binding or define a set function.`
+        `Cannot change nested data value for ${key} as it's read-only. Either define it as a binding or define a set function.`,
       );
     if (isString(config.set)) this.getControllerMethod(config.set)(value, this);
     else if (isFunction(config.set)) config.set(value, this);
     else
       throw new Error(
-        `Cannot change nested data value for ${key} the defined setter is neither a function nor a controller method.`
+        `Cannot change nested data value for ${key} the defined setter is neither a function nor a controller method.`,
       );
 
     return true;
@@ -534,7 +535,7 @@ export class Instance {
     if (!this.instanceCache)
       this.instanceCache = new InstanceCache(
         this,
-        this.widget.isPureContainer ? this.key : null
+        this.widget.isPureContainer ? this.key : null,
       );
     return this.instanceCache;
   }
@@ -547,7 +548,7 @@ export class Instance {
     context: RenderingContext,
     widget: Widget,
     key?: string | null,
-    store?: View | null
+    store?: View | null,
   ) {
     return this.getInstanceCache().getChild(widget, store || this.store, key);
   }
@@ -563,7 +564,7 @@ export class Instance {
       store || this.store,
       options,
       keyPrefix,
-      this
+      this,
     );
   }
 
@@ -588,7 +589,7 @@ export class Instance {
 
     if (typeof callback !== "function")
       throw new Error(
-        `Cannot invoke callback method ${methodName} as assigned value is not a function.`
+        `Cannot invoke callback method ${methodName} as assigned value is not a function.`,
       );
 
     return callback.bind(scope);
@@ -597,7 +598,7 @@ export class Instance {
   getControllerMethod(methodName) {
     if (!this.controller)
       throw new Error(
-        `Cannot invoke controller method "${methodName}" as controller is not assigned to the widget.`
+        `Cannot invoke controller method "${methodName}" as controller is not assigned to the widget.`,
       );
 
     let at: Instance | undefined = this;
@@ -606,7 +607,7 @@ export class Instance {
 
     if (!at || !at.controller || !at.controller[methodName])
       throw new Error(
-        `Cannot invoke controller method "${methodName}". The method cannot be found in any of the assigned controllers.`
+        `Cannot invoke controller method "${methodName}". The method cannot be found in any of the assigned controllers.`,
       );
 
     return at.controller[methodName].bind(at.controller);

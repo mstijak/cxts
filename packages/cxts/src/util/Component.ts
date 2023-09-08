@@ -86,6 +86,8 @@ export class Component {
   }
 }
 
+Component.prototype.isComponent = true;
+
 export interface ComponentFactory {
   create(config?: any): Component;
 }
@@ -93,7 +95,7 @@ export interface ComponentFactory {
 export function createComponentFactory(
   factory,
   jsxDriver,
-  meta
+  meta,
 ): ComponentFactory {
   factory.$isComponentFactory = true;
   factory.$meta = meta;

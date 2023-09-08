@@ -37,7 +37,7 @@ export class CSS {
     let list, type, arg, i, key;
 
     for (i = 0; i < args.length; i++) {
-      arg = arg[i];
+      arg = args[i];
       if (arg) {
         type = typeof arg;
         if (type == "string") list = push(list, arg);
@@ -56,12 +56,12 @@ export class CSS {
     list = pushMap(
       list,
       this.resolve(styleModifiers),
-      (m) => this.classPrefix + "m-" + m
+      (m) => this.classPrefix + "m-" + m,
     );
     list = pushMap(
       list,
       this.resolve(stateModifiers),
-      (m) => this.classPrefix + "s-" + m
+      (m) => this.classPrefix + "s-" + m,
     );
     return join(list);
   }
@@ -71,12 +71,12 @@ export class CSS {
     if (baseClass && elementClass)
       list = push(
         list,
-        this.classPrefix + "e-" + baseClass + "-" + elementClass
+        this.classPrefix + "e-" + baseClass + "-" + elementClass,
       );
     list = pushMap(
       list,
       this.resolve(stateModifiers),
-      (m) => this.classPrefix + "s-" + m
+      (m) => this.classPrefix + "s-" + m,
     );
     return join(list);
   }
@@ -86,14 +86,14 @@ export class CSS {
       pushMap(
         null,
         this.resolve(stateModifiers),
-        (m) => this.classPrefix + "s-" + m
-      )
+        (m) => this.classPrefix + "s-" + m,
+      ),
     );
   }
 
   static mod(mods) {
     return join(
-      pushMap(null, this.resolve(mods), (m) => this.classPrefix + "m-" + m)
+      pushMap(null, this.resolve(mods), (m) => this.classPrefix + "m-" + m),
     );
   }
 

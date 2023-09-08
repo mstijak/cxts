@@ -6,6 +6,7 @@ import { isString } from "../util/isString";
 import { isArray } from "../util/isArray";
 import { exploreChildren } from "./layout/exploreChildren";
 import { RenderingContext } from "./RenderingContext";
+import { Instance } from "./Instance";
 
 export interface ContainerConfig extends WidgetConfig {
   items?: any[];
@@ -20,7 +21,7 @@ export interface ContainerConfig extends WidgetConfig {
   type?: typeof Container;
 }
 
-export class Container extends Widget {
+export abstract class Container extends Widget {
   ws?: boolean;
   preserveWhitespace?: boolean;
   trimWhitespace?: boolean;
@@ -62,7 +63,7 @@ export class Container extends Widget {
     super.init(context);
   }
 
-  exploreItems(context, instance, items) {
+  exploreItems(context: RenderingContext, instance: Instance, items: Widget[]) {
     instance.children = exploreChildren(
       context,
       instance,
@@ -76,10 +77,6 @@ export class Container extends Widget {
   explore(context, instance) {
     super.explore(context, instance);
     this.exploreItems(context, instance, this.items);
-  }
-
-  render(context, instance) {
-    return this.renderChildren(context, instance);
   }
 
   renderChildren(context, instance) {
